@@ -26,7 +26,6 @@
   ],
   "permissions": [
     "activeTab",
-    "storage",
     "tabs",
     "scripting"
   ]
