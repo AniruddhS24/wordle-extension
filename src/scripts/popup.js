@@ -17,6 +17,13 @@ function setWrongPage() {
     document.getElementById("content").innerHTML = "";
 }
 
+function getBarColor(proportion) {
+    const r = Math.round(255*(1-proportion));
+    const g = Math.round(255*proportion);
+    const b = 0;
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
 async function main() {
     
     const tabs = await chrome.tabs.query({active: true});
@@ -57,7 +64,8 @@ async function main() {
                     proportion = proportion.toFixed(2);
                     
                     const div = document.createElement("div");
-                    div.innerHTML = `<div class='d-flex flex-row justify-content-between'><span class='fw-light'>${word}</span><div class='text-center'><span class='badge text-bg-secondary'>${entropy}</span></div></div><div class='progress my-2' role='progressbar'><div class='progress-bar' style='width: ${proportion}%'></div></div>`
+                    const color = getBarColor(proportion/100);
+                    div.innerHTML = `<div class='d-flex flex-row justify-content-between'><span class='fw-light'>${word}</span><div class='text-center'><span class='badge text-bg-secondary'>${entropy}</span></div></div><div class='progress my-2' role='progressbar'><div class='progress-bar' style='width: ${proportion}%; background-color: ${color}'></div></div>`
                     content.appendChild(div);
                 }
 
